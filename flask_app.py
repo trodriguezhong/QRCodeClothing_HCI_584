@@ -10,9 +10,10 @@ app = Flask(__name__)
 
 FEED_URL = "https://news.google.com/rss"
 
+# Load the application into the browser it will run this route the /
 @app.route('/')
-def search_it():
-    html_str = render_template('search.html' )
+def dashboard():
+    html_str = render_template('homepage.html' )
     return html_str
 
 @app.route('/result/', methods=['POST', 'GET'])
