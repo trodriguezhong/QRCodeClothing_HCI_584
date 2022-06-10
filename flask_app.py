@@ -16,6 +16,11 @@ def dashboard():
     html_str = render_template('homepage.html' )
     return html_str
 
+@app.route('/readqrcode/')
+def readqrcode():
+    html_str = render_template('qrcode.html' )
+    return html_str
+
 @app.route('/result/', methods=['POST', 'GET'])
 def search():
     if request.method == 'GET':
