@@ -21,6 +21,27 @@ def readqrcode():
     html_str = render_template('qrcode.html' )
     return html_str
 
+@app.route('/qrresults/', methods=['POST', 'GET'])
+def display_results():
+    if request.method == 'GET':
+        data = request.args.get('q')
+        qrcode_id = data
+
+    headings = []
+    qrprops = []
+    row_index = 0
+    with open('../static/data/data_123456789.csv', 'r') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            if row_index == 0:
+                headings.append( row )
+            else:
+                qrprops.append( row )
+        row_index += 1
+
+    html_str = render_template('qrresults.html', headings=headings, props=qrprops, id=qrcode_id )
+    return html_str
+
 @app.route('/result/', methods=['POST', 'GET'])
 def search():
     if request.method == 'GET':
