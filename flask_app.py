@@ -2,6 +2,8 @@ import feedparser
 from flask import Flask, request, render_template
 import ssl
 from datetime import datetime
+import pandas as pd
+import os
 
 if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
@@ -21,26 +23,55 @@ def readqrcode():
     html_str = render_template('qrcode.html' )
     return html_str
 
+@app.route('/get_data_with_id/<id>')
+def get_data_with_id(id):
+    csvfilename = "../static/data/data_123456789.csv"
+	# to read the csv file using the pandas library
+    props = ["hog", "fish", "hippo"]
+
+    html_str = render_template('qrresults.html', id=id, props=props )
+    return html_str
+
+
+@app.route('/postmethod', methods = ['POST'])
+def get_post_javascript_data():
+    jsdata = request.form['qrcode_id']
+    return 'Made it. postmethod with id: ' + jsdata
+
+@app.route('/test_qrcode/')
+def test_image():
+    html_str = render_template('test.html' )
+    return html_str
+
 @app.route('/qrresults/', methods=['POST', 'GET'])
 def display_results():
-    if request.method == 'GET':
-        data = request.args.get('q')
-        qrcode_id = data
+    searchstr = "";
 
-    headings = []
+#csv reader
+    this_folder = os.path.dirname(os.path.abspath(__file__))
+    my_file = os.path.join(this_folder, 'data_123456789.csv')
     qrprops = []
     row_index = 0
-    with open('../static/data/data_123456789.csv', 'r') as file:
+    with open(my_file, 'r') as file:
         reader = csv.reader(file)
         for row in reader:
-            if row_index == 0:
-                headings.append( row )
-            else:
-                qrprops.append( row )
+            qrprops.append( row )
         row_index += 1
+#end csv reader
 
-    html_str = render_template('qrresults.html', headings=headings, props=qrprops, id=qrcode_id )
+    if request.method == 'GET':
+        data = request.args.get('q')
+        data.strip()
+
+    dataarr = data.split(' ')
+    if len( dataarr ) > 1:
+        searchstr = '+'.join(dataarr)
+    else:
+        searchstr = data
+
+    html_str = render_template('qrresults.html', id=searchstr, props=props )
     return html_str
+
 
 @app.route('/result/', methods=['POST', 'GET'])
 def search():

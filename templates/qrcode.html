@@ -16,7 +16,7 @@
 <body>
     <style>
         video {
-            width: 80%;
+            width: 70%;
             height: auto;
             min-width: 500px;
             min-height: 400px;
@@ -34,7 +34,7 @@
   <main class="wrapper" style="padding-top:2em">
 
     <section class="container" id="demo-content">
-      <h2 class="title">Scan A QR Code</h2>
+      <h2 class="title">Scan QR Code</h2>
 
       <div>
         <a class="button" id="startButton">Start</a>
@@ -71,15 +71,25 @@
 
   <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
   <script type="text/javascript">
+
+
     function decodeOnce(codeReader, selectedDeviceId) {
       codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
         console.log(result)
         document.getElementById('result').textContent = result.text
+        window.location.replace("/get_data_with_id/data_123456789");
+
       }).catch((err) => {
         console.error(err)
         document.getElementById('result').textContent = err
       })
     }
+
+
+
+
+
+
 
     function decodeContinuously(codeReader, selectedDeviceId) {
       codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
