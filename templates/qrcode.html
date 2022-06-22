@@ -77,7 +77,7 @@
       codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
         console.log(result)
         document.getElementById('result').textContent = result.text
-        window.location.replace("/get_data_with_id/data_123456789");
+        window.location.replace("/get_data_with_id/" + result.text);
 
       }).catch((err) => {
         console.error(err)
