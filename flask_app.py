@@ -4,18 +4,13 @@ import ssl
 from datetime import datetime
 import pandas as pd
 import os
-import mysql.connector
-
+import sqlite3
+import logging
 
 if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
 
 app = Flask(__name__)
-
-FEED_URL = "https://news.google.com/rss"
-
-#db = MySQLdb.connect("flaxenink.mysql.pythonanywhere-services.com", "flaxenink", "2038Test**", "flaxenink")
-
 
 # Load the application into the browser it will run this route the /
 @app.route('/')
@@ -30,41 +25,29 @@ def readqrcode():
 
 @app.route('/get_data_with_id/<id>')
 def get_data_with_id(id):
-    #cnx = mysql.connector.connect(user='<username>', password='<passsword>', host='flaxenink.mysql.pythonanywhere-services.com', database='<username>$default')
-    #cnx = mysql.connector.connect(user='flaxenink', database='default', host='flaxenink.mysql.pythonanywhere-services.com')
+    connection = sqlite3.connect("/home/flaxenink/mysite/clothes.db")
+    cursor = connection.cursor()
+    queryStr = "select * from qrclothes where id=" + id
 
-    cnx = mysql.connector.connect(
-        host='flaxenink.mysql.pythonanywhere-services.com',
-        user='flaxenink',
-        passwd='cl0th1ng1nf04ALL',
-        database='flaxenink$default',
-        pool_name='poolname',
-        pool_size=20,
-        connection_timeout=300,
-        #auth_plugin='mysql_native_password'
-    )
-
-    cursor = cnx.cursor()
-
-
-
-    clothesData = []
-    qrcodeId = '1234567'
-    #results = ["hog", "fish", "hippo"]
-    query = ("SELECT * FROM clothes WHERE id=%s")
-    cursor.execute(query, qrcodeId )
-
-
-    for (notes, userId, image) in cursor:
-        clothesData.append( notes, userId, image )
-
-    html_str = render_template('qrresults.html', id=qrcodeId, results=clothesData )
-
-    cursor.close()
-    cnx.close()
-
+    cursor.execute( queryStr )
+    connection.commit()
+    queryData = cursor.fetchone()
+    result = { 'id':queryData[0], 'notes':queryData[1], 'userId':queryData[2], 'image':queryData[3] }
+    html_str = render_template('qrresults.html', id=id, results=result )
+    connection.close()
     return html_str
 
+
+@app.route('/add_new_item')
+def add_new_item():
+    connection = sqlite3.connect("/home/flaxenink/mysite/clothes.db")
+    cursor = connection.cursor()
+    cursor.execute( 'select MAX(id) from qrclothes' )
+    connection.commit()
+    nextID = cursor.fetchone()
+    html_str = render_template('additem.html', newitem=nextID )
+    connection.close()
+    return html_str
 
 @app.route('/postmethod', methods = ['POST'])
 def get_post_javascript_data():
