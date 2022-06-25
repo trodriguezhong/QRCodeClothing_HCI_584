@@ -4,6 +4,12 @@
                 <li>{{n}}</li>
                 {% endfor %}
 
+                {% if results %}
+                <li><strong>QRCode:</strong> {{results['id']}}</li>
+                <li><strong>Notes:</strong> {{results['notes']}}</li>
+                <li><strong>User:</strong> {{results['userId']}}</li>
+                <li><strong>Image:</strong> {{results['image']}}</li>
+                {% endif%}
 -->
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <style>
@@ -69,17 +75,8 @@
 
 
 
-            <h3>QR Code {{id}} Results:</h3>
-            <ul style="list-style: none;">
+            <h3>QR Code {{newitem}} for New Item:</h3>
 
-
-                {% if results %}
-                <li><strong>QRCode:</strong> {{results['id']}}</li>
-                <li><strong>Notes:</strong> {{results['notes']}}</li>
-                <li><strong>User:</strong> {{results['userId']}}</li>
-                <li><strong>Image:</strong> {{results['image']}}</li>
-                {% endif%}
-            </ul>
             <br><br>
             <button onclick="window.location.replace('/');">Go Home</button>
         </div>
