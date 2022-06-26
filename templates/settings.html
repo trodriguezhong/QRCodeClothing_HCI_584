@@ -183,22 +183,24 @@
           }
       }
   
+      .selected {
+          background-color: rgba(155, 155, 155, .2);
+      }
+  
   </style>
   </head><body class="vsc-initialized">
   
       <div class="container">
           <div class="wrapper">
-              <div class="heading-bold">Here is your virtual closet</div>
-              <img id="hanger" src="static/images/locker-room-hanger.svg"/>
-              <div class="subtext">Let’s add a new item or scan a QR code</div>
+              <h2 class="heading-bold">Settings Page</h2>
           </div>
       </div>
       <div class='footer'>
           <div class='nav-bottom'>
-              <img class="button-svg" src="static/images/closet.svg" onclick="window.location.replace('/closet')"/>
+              <img class="button-svg" src="static/images/closet.svg"/>
               <img class="button-svg" src="static/images/add-item.svg" onclick="window.location.replace('/add_new_item')"/>
               <img class="button-svg" src="static/images/qrcode-scan.svg" onclick="window.location.replace('/readqrcode')"/>
-              <img class="button-svg" src="static/images/settings.svg" onclick="window.location.replace('/settings')"/>
+              <img class="button-svg" src="static/images/settings.svg"/>
           </div>
       </div>
   

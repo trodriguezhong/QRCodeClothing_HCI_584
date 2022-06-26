@@ -1,86 +1,208 @@
-<!DOCTYPE html>
-<!-- saved from url=(0096)https://www.pythonanywhere.com/user/flaxenink/files/home/flaxenink/mysite/templates/results.html
-                {% for n in results %}
-                <li>{{n}}</li>
-                {% endfor %}
 
-                {% if results %}
-                <li><strong>QRCode:</strong> {{results['id']}}</li>
-                <li><strong>Notes:</strong> {{results['notes']}}</li>
-                <li><strong>User:</strong> {{results['userId']}}</li>
-                <li><strong>Image:</strong> {{results['image']}}</li>
-                {% endif%}
--->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <style>
-        body {
-            padding: 50px;
-            margin: 50px;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        .container {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            flex-direction: row;
-        }
-
-        h3, ul {
-            margin: 20px;
-        }
-
-        li {
-            font-size: 1.2rem;
-        }
-
-        .scroll-panel  {
-            display: flex;
-            justify-content: center;
-            align-content: center;
-            flex-direction: column;
-            width:70%;
-            height:auto;
-            max-width: 800px;
-            min-width: 600px;
-            max-height: 1200px;
-            overflow-y:auto;
-            border: solid 1px #555;
-            -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 12px 5px rgba(0,1,59,0);
-            box-shadow: 0px 10px 13px -7px #000000, 5px 5px 12px 5px rgba(0,1,59,0);
-            margin: 10px;
-            padding: 10px;
-
-            -webkit-border-radius: 6px;
-            -moz-border-radius: 6px;
-             border-radius: 6px;
-
-        }
-
-        button {
-            width: 100%;
-            max-width: 100px;
-            min-height: 30px;
-            height: auto;
-            margin-left: 30px;
-        }
-    </style>
-</head>
-<!-- name,size,color,price,store,notes,type,manufacturer,ID,user_id,image_1 -->
-  <body class="vsc-initialized">
-    <div class="container">
-        <div class="scroll-panel">
-
-
-
-            <h3>QR Code {{newitem}} for New Item:</h3>
-
-            <br><br>
-            <button onclick="window.location.replace('/');">Go Home</button>
-        </div>
-    </div>
-
-
-</body></html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
+    body {
+              padding: 20px;
+              margin: 20px;
+              font-family: Arial, Helvetica, sans-serif;
+          }
+  
+          .container {
+              width: 100%;
+              height: 80%;
+              max-width: 2048px;
+              max-height: 1076px;
+              margin: 0;
+              padding: 0;
+              display: flex;
+              justify-content: center;
+              align-content: center;
+          }
+  
+          .wrapper {
+              width: 50%;
+              height: auto;
+              min-width: 600px;
+              min-height: 600px;
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
+              flex-direction: column;
+  
+  
+          }
+  
+          h3, ul {
+              margin: 20px;
+          }
+  
+          li > div {
+              font-weight: bolder;
+          }
+  
+          .scroll-panel  {
+              display: flex;
+              align-content: center;
+              width:100%;
+              height:auto;
+              max-width: 2048px;
+              min-width: 1576px;
+              max-height: 1200px;
+              overflow-y:auto;
+              flex-direction: column;
+              justify-content: space-around;
+              flex-wrap: nowrap;
+          }
+  
+          table td {
+              width: 30%;
+              max-width: 300px;
+          }
+  
+          button {
+           width: 100%;
+           max-width: 100px;
+           height:auto;
+          }
+  
+      #hanger {
+          width: 50%;
+          height: 50%;
+          min-width: 50px;
+          min-height: 50px;
+          max-height: 200px;
+          max-width: 200px;
+          aspect-ratio: 4/3;
+          cursor: pointer;
+      }
+  
+      .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        color: white;
+        text-align: center;
+        border-top-style: solid;
+        border-color: #DDE4EE;
+      }
+  
+      img.button-svg {
+          width: 100%;
+          height: 100%;
+          min-width: 50px;
+          min-height: 25px;
+          max-width: 500px;
+          max-height: 250px;
+      }
+  
+  
+  
+      .nav-bottom {
+          display: flex;
+          justify-content: center;
+          flex-direction: row;
+          justify-content: space-around;
+          flex-wrap: nowrap;
+      }
+  
+      .heading-bold {
+          font-family: Arial, Helvetica, sans-serif;
+          font-weight: bolder;
+          font-size: 2rem;
+          color: #908D8D;
+      }
+  
+      .subtext {
+          font-family: Arial, Helvetica, sans-serif;
+          font-weight: normal;
+          font-size: 1.5rem;
+          color: #908D8D;
+      }
+  
+      @media only screen and (max-width: 600px) {
+          img.button-svg {
+              max-width: 800px;
+              max-height: 400px;
+          }
+          .heading-bold {
+              font-size: 3.5rem;
+          }
+          .subtext {
+              font-size: 2.5rem;
+          }
+          .wrapper {
+              width: 100%;
+          }
+      }
+  
+      /* Small devices (portrait tablets and large phones, 600px and up) */
+      @media only screen and (min-width: 600px) {
+          img.button-svg {
+              max-width: 800px;
+              max-height: 400px;
+          }
+          .heading-bold {
+              font-size: 3.5rem;
+          }
+          .subtext {
+              font-size: 2.5rem;
+          }
+          .wrapper {
+              width: 100%;
+          }
+      }
+  
+      /* Medium devices (landscape tablets, 768px and up) */
+      @media only screen and (min-width: 768px) {
+          img.button-svg {
+              max-width: 800px;
+              max-height: 400px;
+          }
+          .heading-bold {
+              font-size: 3.5rem;
+          }
+          .subtext {
+              font-size: 2.5rem;
+          }
+          .wrapper {
+              width: 100%;
+          }
+      }
+  
+      /* Large devices (laptops/desktops, 992px and up) */
+      @media only screen and (min-width: 992px) {
+          img.button-svg {
+              max-width: 250px;
+              max-height: 125px;
+          }
+          .heading-bold {
+              font-size: 2rem;
+          }
+          .subtext {
+              font-size: 1.5rem;
+          }
+      }
+  
+  </style>
+  </head><body class="vsc-initialized">
+  
+      <div class="container">
+          <div class="wrapper">
+              <div class="heading-bold">ADD ITEM Page</div>
+              <h3>QR Code {{newitem}} for New Item:</h3>
+              <br><br>
+              <button onclick="window.location.replace('/');">Go Home</button>
+          </div>
+      </div>
+      <div class='footer'>
+          <div class='nav-bottom'>
+              <img class="button-svg" src="static/images/closet.svg" onclick="window.location.replace('/closet')"/>
+              <img class="button-svg" src="static/images/add-item.svg"/>
+              <img class="button-svg" src="static/images/qrcode-scan.svg" onclick="window.location.replace('/readqrcode')"/>
+              <img class="button-svg" src="static/images/settings.svg" onclick="window.location.replace('/settings')"/>
+          </div>
+      </div>
+  
+  
+  </body></html>
+  

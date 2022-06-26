@@ -16,10 +16,12 @@
 <body>
     <style>
         video {
-            width: 70%;
-            height: auto;
-            min-width: 500px;
-            min-height: 400px;
+          margin: 5px;
+          padding: 0;
+          width: 80%;
+          height: auto;
+          max-width: 800px;
+          max-height: 600px;
         }
 
         .wrapper {
@@ -27,8 +29,119 @@
             height: 100%;
             display: flex !important;
             justify-content: center !important;
-            align-content: center !important;
         }
+
+        .start-button, .reset-button {
+          width: 120px;
+          height: auto;
+        }
+        .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      color: white;
+      text-align: center;
+      border-top-style: solid;
+      border-color: #DDE4EE;
+    }
+
+    img.button-svg {
+        width: 100%;
+        height: 100%;
+        min-width: 50px;
+        min-height: 25px;
+        max-width: 500px;
+        max-height: 250px;
+    }
+
+
+
+    .nav-bottom {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: nowrap;
+    }
+
+    .heading-bold {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bolder;
+        font-size: 2rem;
+        color: #908D8D;
+    }
+
+    .subtext {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: normal;
+        font-size: 1.5rem;
+        color: #908D8D;
+    }
+
+    @media only screen and (max-width: 600px) {
+        img.button-svg {
+            max-width: 800px;
+            max-height: 400px;
+        }
+        .heading-bold {
+            font-size: 3.5rem;
+        }
+        .subtext {
+            font-size: 2.5rem;
+        }
+        .wrapper {
+            width: 100%;
+        }
+    }
+
+    /* Small devices (portrait tablets and large phones, 600px and up) */
+    @media only screen and (min-width: 600px) {
+        img.button-svg {
+            max-width: 800px;
+            max-height: 400px;
+        }
+        .heading-bold {
+            font-size: 3.5rem;
+        }
+        .subtext {
+            font-size: 2.5rem;
+        }
+        .wrapper {
+            width: 100%;
+        }
+    }
+
+    /* Medium devices (landscape tablets, 768px and up) */
+    @media only screen and (min-width: 768px) {
+        img.button-svg {
+            max-width: 800px;
+            max-height: 400px;
+        }
+        .heading-bold {
+            font-size: 3.5rem;
+        }
+        .subtext {
+            font-size: 2.5rem;
+        }
+        .wrapper {
+            width: 100%;
+        }
+    }
+
+    /* Large devices (laptops/desktops, 992px and up) */
+    @media only screen and (min-width: 992px) {
+        img.button-svg {
+            max-width: 250px;
+            max-height: 125px;
+        }
+        .heading-bold {
+            font-size: 2rem;
+        }
+        .subtext {
+            font-size: 1.5rem;
+        }
+    }
     </style>
 
   <main class="wrapper" style="padding-top:2em">
@@ -37,8 +150,9 @@
       <h2 class="title">Scan QR Code</h2>
 
       <div>
-        <a class="button" id="startButton">Start</a>
-        <a class="button" id="resetButton">Reset</a>
+        <button id="start-button">Start</button>
+        <button id="reset-button">Reset</button>
+        <button onclick="window.location.replace('/get_data_with_id/1234567');">TEST</button>
       </div>
 
       <div>
@@ -51,22 +165,10 @@
         </select>
       </div>
 
-      <div style="display: table">
-        <label for="decoding-style"> Decoding Style:</label>
-        <select id="decoding-style" size="1">
-          <option value="once">Decode once</option>
-          <option value="continuously">Decode continuously</option>
-        </select>
-      </div>
-
-      <label>Result:</label>
-      <pre><code id="result"></code></pre>
-
-
     </section>
 
 
-    <button onclick="window.location.replace('/get_data_with_id/1234567');">JUST GO</button>
+
   </main>
 
   <script type="text/javascript" src="https://unpkg.com/@zxing/library@latest"></script>
@@ -76,52 +178,11 @@
     function decodeOnce(codeReader, selectedDeviceId) {
       codeReader.decodeFromInputVideoDevice(selectedDeviceId, 'video').then((result) => {
         console.log(result)
-        document.getElementById('result').textContent = result.text
         window.location.replace("/get_data_with_id/" + result.text);
 
       }).catch((err) => {
         console.error(err)
         document.getElementById('result').textContent = err
-      })
-    }
-
-
-
-
-
-
-
-    function decodeContinuously(codeReader, selectedDeviceId) {
-      codeReader.decodeFromInputVideoDeviceContinuously(selectedDeviceId, 'video', (result, err) => {
-        if (result) {
-          // properly decoded qr code
-          console.log('Found QR code!', result)
-          document.getElementById('result').textContent = result.text
-        }
-
-        if (err) {
-          // As long as this error belongs into one of the following categories
-          // the code reader is going to continue as excepted. Any other error
-          // will stop the decoding loop.
-          //
-          // Excepted Exceptions:
-          //
-          //  - NotFoundException
-          //  - ChecksumException
-          //  - FormatException
-
-          if (err instanceof ZXing.NotFoundException) {
-            console.log('No QR code found.')
-          }
-
-          if (err instanceof ZXing.ChecksumException) {
-            console.log('A code was found, but it\'s read value was not valid.')
-          }
-
-          if (err instanceof ZXing.FormatException) {
-            console.log('A code was found, but it was in a invalid format.')
-          }
-        }
       })
     }
 
@@ -150,20 +211,14 @@
             sourceSelectPanel.style.display = 'block'
           }
 
-          document.getElementById('startButton').addEventListener('click', () => {
+          document.getElementById('start-button').addEventListener('click', () => {
 
-            const decodingStyle = document.getElementById('decoding-style').value;
-
-            if (decodingStyle == "once") {
-              decodeOnce(codeReader, selectedDeviceId);
-            } else {
-              decodeContinuously(codeReader, selectedDeviceId);
-            }
+            decodeOnce(codeReader, selectedDeviceId);
 
             console.log(`Started decode from camera with id ${selectedDeviceId}`)
           })
 
-          document.getElementById('resetButton').addEventListener('click', () => {
+          document.getElementById('reset-button').addEventListener('click', () => {
             codeReader.reset()
             document.getElementById('result').textContent = '';
             console.log('Reset.')
@@ -175,6 +230,15 @@
         })
     })
   </script>
+
+<div class='footer'>
+  <div class='nav-bottom'>
+      <img class="button-svg" src="../static/images/closet.svg" onclick="window.location.replace('/closet')"/>
+      <img class="button-svg" src="../static/images/add-item.svg" onclick="window.location.replace('/add_new_item')"/>
+      <img class="button-svg" src="../static/images/qrcode-scan.svg" onclick="window.location.replace('/readqrcode')"/>
+      <img class="button-svg" src="../static/images/settings.svg" onclick="window.location.replace('/settings')"/>
+  </div>
+</div>
 
 </body>
 

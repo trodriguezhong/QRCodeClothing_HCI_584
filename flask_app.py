@@ -18,6 +18,16 @@ def dashboard():
     html_str = render_template('homepage.html' )
     return html_str
 
+@app.route('/closet')
+def closet():
+    html_str = render_template('closet.html' )
+    return html_str
+
+@app.route('/settings')
+def settings():
+    html_str = render_template('settings.html' )
+    return html_str
+
 @app.route('/readqrcode/')
 def readqrcode():
     html_str = render_template('qrcode.html' )
