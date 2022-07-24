@@ -1,208 +1,586 @@
 
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style>
-    body {
-              padding: 20px;
-              margin: 20px;
-              font-family: Arial, Helvetica, sans-serif;
-          }
-  
-          .container {
-              width: 100%;
-              height: 80%;
-              max-width: 2048px;
-              max-height: 1076px;
-              margin: 0;
-              padding: 0;
-              display: flex;
-              justify-content: center;
-              align-content: center;
-          }
-  
-          .wrapper {
-              width: 50%;
-              height: auto;
-              min-width: 600px;
-              min-height: 600px;
-              display: flex;
-              justify-content: space-around;
-              align-items: center;
-              flex-direction: column;
-  
-  
-          }
-  
-          h3, ul {
-              margin: 20px;
-          }
-  
-          li > div {
-              font-weight: bolder;
-          }
-  
-          .scroll-panel  {
-              display: flex;
-              align-content: center;
-              width:100%;
-              height:auto;
-              max-width: 2048px;
-              min-width: 1576px;
-              max-height: 1200px;
-              overflow-y:auto;
-              flex-direction: column;
-              justify-content: space-around;
-              flex-wrap: nowrap;
-          }
-  
-          table td {
-              width: 30%;
-              max-width: 300px;
-          }
-  
-          button {
-           width: 100%;
-           max-width: 100px;
-           height:auto;
-          }
-  
-      #hanger {
-          width: 50%;
-          height: 50%;
-          min-width: 50px;
-          min-height: 50px;
-          max-height: 200px;
-          max-width: 200px;
-          aspect-ratio: 4/3;
-          cursor: pointer;
-      }
-  
-      .footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
+  body {
+            padding: 20px;
+            margin: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            height: 80%;
+            max-width: 2048px;
+            max-height: 1076px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+        }
+
+        .wrapper {
+            width: 50%;
+            height: auto;
+            min-width: 600px;
+            min-height: 600px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-direction: column;
+            border: 1px solid gray;
+            border-radius: 10px;
+            max-height: 100%;
+            overflow-y: auto;
+        }
+
+        .camera-layer-off {
+            display: none !important;
+            width: 0px;
+            height: 0px;
+            background-color: rgba(255,255,255, 0);
+            position: fixed;
+            z-index: 1000000;
+        }
+
+        .camera-layer-on {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255,255,255, .9);
+            margin: 0;
+            padding: 0;
+            display: flex !important;
+            position: fixed;
+            z-index: 1000000;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            flex-direction: column;
+            left: 0; top: 0;
+        }
+
+        h3, ul {
+            margin: 20px;
+        }
+
+        li > div {
+            font-weight: bolder;
+        }
+
+        .scroll-panel  {
+            display: flex;
+            align-content: center;
+            width:100%;
+            height:auto;
+            max-width: 2048px;
+            min-width: 1576px;
+            max-height: 1200px;
+            overflow-y:auto;
+            flex-direction: column;
+            justify-content: space-around;
+            flex-wrap: nowrap;
+        }
+
+        table td {
+            width: 30%;
+            max-width: 300px;
+        }
+
+/*
+        button {
+         width: 100%;
+         max-width: 100px;
+         height:auto;
+        }
+*/
+    #hanger {
+        width: 50%;
+        height: 50%;
+        min-width: 50px;
+        min-height: 50px;
+        max-height: 200px;
+        max-width: 200px;
+        aspect-ratio: 4/3;
+        cursor: pointer;
+    }
+
+    .footer {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      color: white;
+      text-align: center;
+      border-top-style: solid;
+      border-color: #DDE4EE;
+    }
+
+    img.button-svg {
         width: 100%;
-        color: white;
-        text-align: center;
-        border-top-style: solid;
-        border-color: #DDE4EE;
-      }
-  
-      img.button-svg {
-          width: 100%;
-          height: 100%;
-          min-width: 50px;
-          min-height: 25px;
-          max-width: 500px;
-          max-height: 250px;
-      }
-  
-  
-  
-      .nav-bottom {
-          display: flex;
-          justify-content: center;
-          flex-direction: row;
-          justify-content: space-around;
-          flex-wrap: nowrap;
-      }
-  
-      .heading-bold {
-          font-family: Arial, Helvetica, sans-serif;
-          font-weight: bolder;
-          font-size: 2rem;
-          color: #908D8D;
-      }
-  
-      .subtext {
-          font-family: Arial, Helvetica, sans-serif;
-          font-weight: normal;
-          font-size: 1.5rem;
-          color: #908D8D;
-      }
-  
-      @media only screen and (max-width: 600px) {
-          img.button-svg {
-              max-width: 800px;
-              max-height: 400px;
-          }
-          .heading-bold {
-              font-size: 3.5rem;
-          }
-          .subtext {
-              font-size: 2.5rem;
-          }
-          .wrapper {
-              width: 100%;
-          }
-      }
-  
-      /* Small devices (portrait tablets and large phones, 600px and up) */
-      @media only screen and (min-width: 600px) {
-          img.button-svg {
-              max-width: 800px;
-              max-height: 400px;
-          }
-          .heading-bold {
-              font-size: 3.5rem;
-          }
-          .subtext {
-              font-size: 2.5rem;
-          }
-          .wrapper {
-              width: 100%;
-          }
-      }
-  
-      /* Medium devices (landscape tablets, 768px and up) */
-      @media only screen and (min-width: 768px) {
-          img.button-svg {
-              max-width: 800px;
-              max-height: 400px;
-          }
-          .heading-bold {
-              font-size: 3.5rem;
-          }
-          .subtext {
-              font-size: 2.5rem;
-          }
-          .wrapper {
-              width: 100%;
-          }
-      }
-  
-      /* Large devices (laptops/desktops, 992px and up) */
-      @media only screen and (min-width: 992px) {
-          img.button-svg {
-              max-width: 250px;
-              max-height: 125px;
-          }
-          .heading-bold {
-              font-size: 2rem;
-          }
-          .subtext {
-              font-size: 1.5rem;
-          }
-      }
-  
-  </style>
-  </head><body class="vsc-initialized">
-  
-      <div class="container">
-          <div class="wrapper">
-              <div class="heading-bold">ADD ITEM Page</div>
-              <h3>QR Code {{newitem}} for New Item:</h3>
-              <br><br>
-              <button onclick="window.location.replace('/');">Go Home</button>
-          </div>
-      </div>
-      <div class='footer'>
-          <div class='nav-bottom'>
-              <img class="button-svg" src="static/images/closet.svg" onclick="window.location.replace('/closet')"/>
-              <img class="button-svg" src="static/images/add-item.svg"/>
-              <img class="button-svg" src="static/images/qrcode-scan.svg" onclick="window.location.replace('/readqrcode')"/>
-              <img class="button-svg" src="static/images/settings.svg" onclick="window.location.replace('/settings')"/>
-          </div>
-      </div>
-  
-  
-  </body></html>
-  
+        height: 100%;
+        min-width: 50px;
+        min-height: 25px;
+        max-width: 500px;
+        max-height: 250px;
+    }
+
+
+
+    .nav-bottom {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: nowrap;
+    }
+
+    .heading-bold {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bolder;
+        font-size: 3.5rem;
+        color: #908D8D;
+    }
+
+    .heading-grey {
+        color: #908D8D;
+        font-size: 3.5rem;
+    }
+
+    .qr-title, #notes {
+        font-size: 3.5rem;
+    }
+
+    #notes {
+        width:90%;
+        margin: 20px;
+    }
+
+    input#submit-btn, button.snapshot-button {
+        width: 100px !important;
+        height: 50px !important;
+        font-size: 3.0rem;
+        margin: 10px;
+        margin-left: 20px;
+    }
+
+    button.snapshot-button {
+        margin-left: 0px;
+        margin-right: 20px;
+        height: 150px !important;
+        right: 50px;
+    }
+
+    .subtext {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: normal;
+        font-size: 1.5rem;
+        color: #908D8D;
+    }
+
+    @media only screen and (max-width: 600px) {
+        img.button-svg {
+            max-width: 800px;
+            max-height: 400px;
+        }
+        .heading-bold {
+            font-size: 3.5rem;
+        }
+        .qr-title, #notes {
+            font-size: 2.5rem;
+        }
+
+        .heading-grey {
+            font-size: 2.5rem;
+        }
+        .subtext {
+            font-size: 2.5rem;
+        }
+        .wrapper {
+            width: 100%;
+        }
+
+        input#submit-btn, button.snapshot-button {
+            width: 199px !important;
+            height: 70px !important;
+            font-size: 2.5rem;
+        }
+
+        button.snapshot-button {
+            height: 150px !important;
+        }
+    }
+
+    /* Small devices (portrait tablets and large phones, 600px and up) */
+    @media only screen and (min-width: 600px) {
+        img.button-svg {
+            max-width: 800px;
+            max-height: 400px;
+        }
+        .heading-bold {
+            font-size: 3.5rem;
+        }
+        .qr-title, #notes {
+            font-size: 2.5rem;
+        }
+
+        .heading-grey {
+            font-size: 2.5rem;
+        }
+        .subtext {
+            font-size: 2.5rem;
+        }
+        .wrapper {
+            width: 100%;
+        }
+        input#submit-btn, button.snapshot-button {
+            width: 200px !important;
+            height: 70px !important;
+            font-size: 2.5rem;
+        }
+
+        button.snapshot-button {
+            height: 150px !important;
+        }
+    }
+
+    /* Medium devices (landscape tablets, 768px and up) */
+    @media only screen and (min-width: 768px) {
+        img.button-svg {
+            max-width: 800px;
+            max-height: 400px;
+        }
+        .heading-bold {
+            font-size: 3.5rem;
+        }
+        .qr-title, #notes {
+            font-size: 2.5rem;
+        }
+        .heading-grey {
+            font-size: 2.5rem;
+        }
+        .subtext {
+            font-size: 2.5rem;
+        }
+        .wrapper {
+            width: 100%;
+        }
+        input#submit-btn, button.snapshot-button {
+            width: 208px !important;
+            height: 70px !important;
+            font-size: 2.5rem;
+        }
+
+        button.snapshot-button {
+            height: 150px !important;
+        }
+    }
+
+    /* Large devices (laptops/desktops, 992px and up) */
+    @media only screen and (min-width: 992px) {
+        img.button-svg {
+            max-width: 250px;
+            max-height: 125px;
+        }
+        .heading-bold {
+            font-size: 3.0rem;
+        }
+        .qr-title, #notes {
+            font-size: 2.5rem;
+        }
+        .heading-grey {
+            color: #908D8D;
+            font-size: 2.5rem;
+        }
+        .subtext {
+            font-size: 1.5rem;
+        }
+
+        input#submit-btn, button.snapshot-button {
+            width: 202px !important;
+            height: 70px !important;
+            font-size: 2.5rem;
+        }
+
+        button.snapshot-button {
+            height: 150px !important;
+        }
+    }
+
+
+
+        #download-photo {
+
+            width: 20px;
+            height: 20px;
+            opacity: .2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .snapshot-button, .toggle-camera-button {
+            width: 2em;
+            height: auto;
+            position: fixed;
+            z-index: 40000;
+            bottom: 50%;
+            right: 10px;
+        }
+
+        .toggle-camera-button {
+            z-index: 40001;
+            bottom: 45%;
+        }
+
+        .photo-canvas {
+            bottom: 50%;
+            right: 0;
+            z-index: 30000;
+            width: 100% !important;
+            height: auto !important;
+            aspect-ratio: 640/480;
+            max-width: 640px;
+        }
+
+
+        #photo-close-btn {
+            position:fixed;
+            right: 30px;
+            top: 30px;
+            width: 50%;
+            height: auto;
+            max-width: 50px;
+            max-height: 50px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: bolder;
+            font-size: 2rem;
+            color: #908D8D;
+        }
+
+        .webcam-position {
+            display:block;
+            position:absolute;
+            left: 50px; top: 50px;
+            z-index:200000;
+        }
+
+</style>
+ <!-- <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script> -->
+
+    <script>
+        class Webcam{constructor(e,t="user",s=null,i=null){this._webcamElement=e,this._webcamElement.width=this._webcamElement.width||640,this._webcamElement.height=this._webcamElement.height||.99*this._webcamElement.width,this._facingMode=t,this._webcamList=[],this._streamList=[],this._selectedDeviceId="",this._canvasElement=s,this._snapSoundElement=i}get facingMode(){return this._facingMode}set facingMode(e){this._facingMode=e}get webcamList(){return this._webcamList}get webcamCount(){return this._webcamList.length}get selectedDeviceId(){return this._selectedDeviceId}getVideoInputs(e){return this._webcamList=[],e.forEach(e=>{"videoinput"===e.kind&&this._webcamList.push(e)}),1==this._webcamList.length&&(this._facingMode="user"),this._webcamList}getMediaConstraints(){var e={};return""==this._selectedDeviceId?e.facingMode=this._facingMode:e.deviceId={exact:this._selectedDeviceId},{video:e,audio:!1}}selectCamera(){for(let e of this._webcamList)if("user"==this._facingMode&&e.label.toLowerCase().includes("front")||"enviroment"==this._facingMode&&e.label.toLowerCase().includes("back")){this._selectedDeviceId=e.deviceId;break}}flip(){this._facingMode="user"==this._facingMode?"enviroment":"user",this._webcamElement.style.transform="",this.selectCamera()}async start(e=!0){return new Promise((t,s)=>{this.stop(),navigator.mediaDevices.getUserMedia(this.getMediaConstraints()).then(i=>{this._streamList.push(i),this.info().then(i=>{this.selectCamera(),e?this.stream().then(e=>{t(this._facingMode)}).catch(e=>{s(e)}):t(this._selectedDeviceId)}).catch(e=>{s(e)})}).catch(e=>{s(e)})})}async info(){return new Promise((e,t)=>{navigator.mediaDevices.enumerateDevices().then(t=>{this.getVideoInputs(t),e(this._webcamList)}).catch(e=>{t(e)})})}async stream(){return new Promise((e,t)=>{navigator.mediaDevices.getUserMedia(this.getMediaConstraints()).then(t=>{this._streamList.push(t),this._webcamElement.srcObject=t,"user"==this._facingMode&&(this._webcamElement.style.transform="scale(-1,1)"),this._webcamElement.play(),e(this._facingMode)}).catch(e=>{console.log(e),t(e)})})}stop(){this._streamList.forEach(e=>{e.getTracks().forEach(e=>{e.stop()})})}snap(){if(null!=this._canvasElement){null!=this._snapSoundElement&&this._snapSoundElement.play(),this._canvasElement.height=this._webcamElement.scrollHeight,this._canvasElement.width=this._webcamElement.scrollWidth;let e=this._canvasElement.getContext("2d");return"user"==this._facingMode&&(e.translate(this._canvasElement.width,0),e.scale(-1,1)),e.clearRect(0,0,this._canvasElement.width,this._canvasElement.height),e.drawImage(this._webcamElement,0,0,this._canvasElement.width,this._canvasElement.height),this._canvasElement.toDataURL("image/png")}throw"canvas element is missing"}}
+
+        // const that = this;
+        function startPhotoSession() {
+            var webcamElement = document.getElementById('webcam');
+            var canvasElement = document.getElementById('photo-canvas');
+            var snapSoundElement = document.getElementById('snapSound');
+            window.webcam = new Webcam(webcamElement, 'environment', canvasElement, snapSoundElement);
+            window.webcam.start()
+                .then(result =>{
+                    console.log("webcam started");
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+
+        function takeSnapShot() {
+            console.log("taking snapshot")
+
+            let picture = window.webcam.snap();
+            document.querySelector('#download-photo').href = picture;
+        }
+
+        function toggleCamera() {
+            window.webcam.flip()
+        }
+
+    </script>
+
+
+</head><body class="vsc-initialized">
+    <div id="overlay" class="camera-layer-off"><h2>Take Photo Here...</h2>
+
+    <button id="photo-close-btn" onclick="that.closePhoto()">X</button>
+
+            <button class="snapshot-button" onclick="takeSnapShot()">Take Photo</button>
+            <!-- <button class="snapshot-button" onclick="toggleCamera()">Toggle Camera</button> -->
+            <video id="webcam" class="snapshot-img" autoplay playsinline width="700" height="700"></video>
+            <canvas id="photo-canvas" class="snapshot-img"></canvas>
+            <audio id="snapSound" src="static/audio/snap.wav" preload = "auto"></audio>
+            <div id="download-photo" class="snapshot-img">&nbsp;</div>
+    </div>
+   <style>
+        #qrcode-container{
+            display:block;
+        }
+
+        .qrcode{
+          padding: 16px;
+        }
+        .qrcode img{
+          margin: 0 auto;
+        }
+
+        label,input{
+          display:flex;
+          flex-direction:column;
+          margin-top: 0px;
+        }
+
+        input {
+            margin-top: 5px;
+        }
+
+        #overlay {
+            display:block;
+        }
+
+        #photocontainer {
+            width: 100%;
+            height: auto;
+            max-width: 300px;
+            max-height: 300px;
+            background-color: white;
+            border-radius: 5px;
+            border: 1px solid black;
+
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #photo-image {
+            width: inherit;
+            height: inherit;
+            max-width: 200px;
+            max-height: 200px;
+            padding: 0;
+            margin: 5px 20px;
+        }
+
+
+
+
+        .snapshot-img {
+            width: 70% !important;
+            height: auto !important;
+            max-width: 700px !important;
+            max-height: 600px !important;
+            margin-top: 20px;
+        }
+
+        .content-buffer {
+            margin: 20px 0px;
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+
+<script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+
+    <div class="container">
+    <div class="wrapper">
+        <span class="content-buffer">&nbsp;</span>
+    <h2 class="heading-bold">Add a New Item</h2>
+    <div id="qrcode"></div>
+    <script type="text/javascript">
+        let data = {{ newitem|tojson }};
+        let idNum = parseInt( data['id'] );
+        const nextID = ++idNum;
+        let qrcodeID = String(nextID);
+        new QRCode(document.getElementById("qrcode"), qrcodeID);
+        // document.write("<h3 class='qr-title'>QRCODE: " + qrcodeID + "</h3>");
+        const that = this;
+
+        function takePhoto() {
+            console.log("takePhoto clicked")
+            let overlay = document.getElementById('overlay');
+            overlay.className = "camera-layer-on";
+            console.log("overlay is now: " + document.getElementById('overlay').class)
+
+            setTimeout(() => {
+                console.log("Starting photosession")
+            window.startPhotoSession();
+
+            }, 1000);
+
+
+        }
+
+        function closePhoto() {
+
+            setTimeout(() => {
+
+                let cont = document.getElementById("qrcode");
+                let qrcode_img = cont.getElementsByTagName('img')[0];
+
+                var cvs = document.getElementById("photo-canvas");
+                var base64String = cvs.toDataURL();
+
+                document.getElementById("img_data").value = base64String;
+                document.getElementById('photo-image').src = base64String;
+
+                let overlay = document.getElementById('overlay');
+                overlay.className = "camera-layer-off";
+            }, 1000);
+
+
+        }
+
+    </script>
+
+
+
+            <form action="/save_data" method="POST">
+              <label for="notes" class="heading-grey"><strong>Enter Item Notes:</strong></label>
+              <textarea id="notes" name="notes" rows="3" cols="40"></textarea>
+              <input type="hidden" id="qrcode_data" name="qrcode_data" value="1311">
+              <input type="hidden" id="id" name="id" value="0">
+              <input type="hidden" id="image" name="image" value="none">
+              <input type="hidden" id="userid" name="userid" value="smiles@yahoo.com">
+              <input type="hidden" id="img_data" name="img_data" value="none yet...">
+              <input type="submit" id="submit-btn" value="Save Item">
+            </form>
+
+            <div id="photocontainer">
+                <img id="photo-image" src="static/images/picture.png" onclick="that.takePhoto()"/>
+                <h2 class="heading-greu">Click to Take Photo</h2>
+            </div>
+
+            <span class="content-buffer">&nbsp;</span>
+        </div>
+    </div>
+    <div class='footer'>
+        <div class='nav-bottom'>
+            <img class="button-svg" src="static/images/closet.svg" onclick="window.location.replace('/closet')"/>
+            <img class="button-svg" src="static/images/add-item.svg"/>
+            <img class="button-svg" src="static/images/qrcode-scan.svg" onclick="window.location.replace('/readqrcode')"/>
+        </div>
+    </div>
+
+    <script>
+        setTimeout(() => {
+
+            let cont = document.getElementById("qrcode");
+            let qrcode_img = cont.getElementsByTagName('img')[0];
+
+            var c = document.createElement('canvas');
+            c.height = qrcode_img.naturalHeight;
+            c.width = qrcode_img.naturalWidth;
+            var ctx = c.getContext('2d');
+            ctx.drawImage(qrcode_img, 0, 0, c.width, c.height);
+            var base64String = c.toDataURL();
+
+            console.log("saving data after 1 second.");
+            qrImage = document.getElementById("qrcode").value;
+            document.getElementById("qrcode_data").value = base64String;
+            document.getElementById("id").value = qrcodeID;
+
+        }, 1000);
+
+    </script>
+
+
+</body></html>

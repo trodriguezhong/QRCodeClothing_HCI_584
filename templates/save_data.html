@@ -33,11 +33,6 @@
 
         h3, ul {
             margin: 20px;
-            overflow-y: scroll;
-        }
-
-        li {
-            margin: 30px;
         }
 
         li > div {
@@ -128,10 +123,6 @@
         color: #908D8D;
     }
 
-    .hand-pointer {
-        cursor: pointer;
-    }
-
     @media only screen and (max-width: 600px) {
         img.button-svg {
             max-width: 800px;
@@ -200,29 +191,12 @@
 
 
 </head><body class="vsc-initialized">
-    <script>
-        function display_qrcode() {
-            let data = {{ results|tojson }};
-            let idNum = parseInt( data['id'] );
-            window.location.replace("/display_qrcode/" + idNum);
-        }
-    </script>
+
     <div class="container">
         <div class="wrapper">
-            <div class="heading-bold">Results Page</div>
-
-            <ul style="list-style: none;" height="700">
-
-                {% if results %}
-                <li><span class="heading-bold">QRCode: &nbsp;</span><span class="heading-normal hand-pointer" onclick="display_qrcode()"><u>{{results['id']}}</u></span></li>
-                <li><img src="{{results['qrcode_data']}}" width="400" height="400"/>&nbsp;<img src="{{results['img_data']}}" width="500" height="400"/></li>
-                <li><span class="heading-bold">Notes:</span><span class="heading-normal">{{results['notes']}}</span></li>
-                <li><span class="heading-bold">User:</span><span class="heading-normal">{{results['userId']}}</span></li>
-
-                {% endif%}
-            </ul>
-            <br><br>
-
+            <div class="heading-bold">NEW ITEM SAVED Notes:{{notes}}<br> id:{{id}}</div>
+            <img src={{qrcode_data}} width='300' height='300'/>
+            <button onclick="window.location.replace('/');">Go Home</button>
         </div>
     </div>
     <div class='footer'>
